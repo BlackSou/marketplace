@@ -40,7 +40,7 @@ class Product
      * @var Collection<ProductCategory>
      */
     #[ORM\ManyToMany(targetEntity: ProductCategory::class)]
-    #[ORM\JoinTable(name: 'book_to_book_category')]
+    #[ORM\JoinTable(name: 'product_to_product_category')]
     private Collection $categories;
 
     public function __construct()
