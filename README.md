@@ -67,3 +67,9 @@ php bin/console doctrine:fixtures:load --purge-with-truncate
 ```
 ## API Endpoints
 http://127.0.0.1:88/api/doc
+
+## DrawSQL
+https://drawsql.app/teams/demo-77/diagrams/marketplace
+
+## UML diagram
+...
