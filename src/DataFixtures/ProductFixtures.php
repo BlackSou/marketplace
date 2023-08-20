@@ -23,7 +23,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             ->setSlug('meme-code')
             ->setImage('https://www.memeland.com/_next/static/media/meme-banner-card.aa47db16.png')
             ->setCategories(new ArrayCollection([$sellerCategory, $buyerCategory]))
-            ->setAddDate(new \DateTimeImmutable('2019-04-01'));
+            ->setAddDate(new \DateTimeImmutable('2023-08-20'));
 
         $manager->persist($product);
         $manager->flush();

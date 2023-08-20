@@ -33,8 +33,8 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\Column(type: 'date_immutable', nullable: true)]
-    private ?\DateTimeInterface $addDate = null;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $addDate = null;
 
     /**
      * @var Collection<ProductCategory>
