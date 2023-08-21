@@ -10,13 +10,13 @@ use App\Exception\ProductCategoryNotFoundException;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
 use App\Service\ProductService;
+use App\Tests\AbstractBaseTestCase;
 use Doctrine\Common\Collections\ArrayCollection;
-use PHPUnit\Framework\TestCase;
 
-class ProductServiceTest extends TestCase
+class ProductServiceTest extends AbstractBaseTestCase
 {
 
-    public function testGetProductsByCategoryNotFound()
+    public function testGetProductsByCategoryNotFound(): void
     {
         $randomNumber = mt_rand();
         $productRepository = $this->createMock(ProductRepository::class);
@@ -31,14 +31,14 @@ class ProductServiceTest extends TestCase
         (new ProductService($productRepository, $categoryRepository))->getProductsByCategory($randomNumber);
     }
 
-    public function testGetProductsByCategory()
+    public function testGetProductsByCategory(): void
     {
         $randomNumber = mt_rand();
         $productRepository = $this->createMock(ProductRepository::class);
         $productRepository->expects($this->once())
             ->method('findProductsCategoryId')
             ->with($randomNumber)
-            ->willReturn([$this->createProduct()]);
+            ->willReturn([$this->createProduct($randomNumber)]);
 
         $categoryRepository = $this->createMock(ProductCategoryRepository::class);
         $categoryRepository->expects($this->once())
@@ -47,15 +47,14 @@ class ProductServiceTest extends TestCase
             ->willReturn(new ProductCategory());
 
         $service = new ProductService($productRepository, $categoryRepository);
-        $expected = new ProductListResponse([$this->createProductItem()]);
+        $expected = new ProductListResponse([$this->createProductItem($randomNumber)]);
 
-        //TODO Error for App\DTO\ProductListItem::setId()
         $this->assertEquals($expected, $service->getProductsByCategory($randomNumber));
     }
 
-    private function createProduct(): Product
+    private function createProduct(int $id): Product
     {
-        return (new Product())
+        $product = (new Product())
             ->setTitle('Meme code')
             ->setDescription('Codes for receiving MEME token allocation')
             ->setStatus(true)
@@ -64,12 +63,16 @@ class ProductServiceTest extends TestCase
             ->setImage('https://www.memeland.com/_next/static/media/meme-banner-card.aa47db16.png')
             ->setCategories(new ArrayCollection())
             ->setAddDate(new \DateTimeImmutable('2023-08-20'));
+
+        $this->setEntityId($product, $id);
+
+        return $product;
     }
 
-    private function createProductItem(): ProductListItem
+    private function createProductItem(int $id): ProductListItem
     {
         return (new ProductListItem())
-            ->setId(mt_rand())
+            ->setId($id)
             ->setTitle('Meme code')
             ->setDescription('Codes for receiving MEME token allocation')
             ->setStatus(true)
