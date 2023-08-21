@@ -9,9 +9,9 @@ use App\Repository\ProductCategoryRepository;
 use App\Service\ProductCategoryService;
 use Doctrine\Common\Collections\Criteria;
 use PHPUnit\Framework\MockObject\Exception;
-use App\Tests\BaseTestCase;
+use App\Tests\AbstractBaseTestCase;
 
-class ProductCategoryServiceTest extends BaseTestCase
+class ProductCategoryServiceTest extends AbstractBaseTestCase
 {
 
     /**
